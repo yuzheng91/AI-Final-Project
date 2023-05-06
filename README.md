@@ -1,7 +1,7 @@
 # AI-Final-Project
 Generative AI
 
-### Data
+### Midi
 Contain all midi files readable from each musician
 
 ### Error
