@@ -16,6 +16,8 @@ Contain midi files that occur error while reading
 Contain all notes extracted from [Data](https://github.com/Mike1ife/AI-Final-Project/tree/main/Data)
 
 ### Argument
-+ -h                    show this help message and exit
-+ --read_csv            to read notes from csv file, default=False
-+ --remove_range RANGE  set remove frequency range, default=100
+<pre>
+-h                    show this help message and exit
+--read_csv            to read notes from csv file, default=False
+--remove_range RANGE  set remove frequency range, default=100
+</pre>
