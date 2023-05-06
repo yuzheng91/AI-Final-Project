@@ -12,5 +12,5 @@ Contain midi files that occur error while reading
   + Key signature message with the invalid value
   + [Key signature conversion table](https://github.com/mido/mido/blob/f23a97427a9c36a1afea4ab4d67338f4741b9edb/mido/midifiles/meta.py#L27)
 
-### note.csv
+### Note.csv
 Contain all notes extracted from [Data](https://github.com/Mike1ife/AI-Final-Project/tree/main/Data)
