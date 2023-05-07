@@ -18,6 +18,6 @@ Contain all notes extracted from [Data](https://github.com/Mike1ife/AI-Final-Pro
 ### Argument
 <pre>
 -h                    show this help message and exit
---read_csv            to read notes from csv file
+--read_csv            read notes from csv file
 --remove_range RANGE  set remove frequency range, default=100
 </pre>
