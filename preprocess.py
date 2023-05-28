@@ -4,7 +4,9 @@ import pandas as pd
 from music21 import *
 from collections import Counter
 import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
+
 
 def Load_Dataset(read_csv):
     if read_csv:
@@ -17,15 +19,16 @@ def Load_Dataset(read_csv):
         return Notes_List
     else:
         Midi_List = []
-        for dir in os.listdir('./Data'):
-            path = f'./Data/{dir}'
+        for dir in os.listdir("./Data"):
+            path = f"./Data/{dir}"
             for file in os.listdir(path):
-                filepath = path + f'/{file}'
+                filepath = path + f"/{file}"
                 print(filepath)
                 # Load data from midi file
                 midi = converter.parse(filepath)
                 Midi_List.append(midi)
         return Notes_Extraction(Midi_List)
+
 
 def Notes_Extraction(Midi_List):
     Notes_List = []
@@ -34,6 +37,8 @@ def Notes_Extraction(Midi_List):
         # partition song with instrument
         songs = instrument.partitionByInstrument(midi)
         for part in songs.parts:
+            if part.partName != "Piano":
+                continue
             # get access to each element
             pick = part.recurse()
             for element in pick:
@@ -44,29 +49,36 @@ def Notes_Extraction(Midi_List):
                     Notes.append(str(element.pitch))
                 elif isinstance(element, chord.Chord):
                     # if this element is chord, get list of pitches and join with '.'
-                    Notes.append(".".join(str(n.nameWithOctave) for n in element.pitches))
+                    Notes.append(
+                        ".".join(str(n.nameWithOctave) for n in element.pitches)
+                    )
                 elif isinstance(element, note.Rest):
-                    Notes.append('REST')
+                    Notes.append("REST")
         if Notes:
-            Notes_List.append(' '.join(Notes))
+            Notes_List.append(" ".join(Notes))
 
     # save as csv file
     df = pd.DataFrame(Notes_List)
-    df.to_csv('Notes.csv', index=False, header=False)
+    df.to_csv("Notes.csv", index=False, header=False)
     return Notes_List
 
+
 def Notes_to_Index(Notes_List):
-    Notes_vocab = [] # all vocabulary of notes
-    Notes_index = [] # list of note index of each song
-    Notes_map = {} # map from note to index
+    Notes_vocab = []  # all vocabulary of notes
+    Notes_index = []  # list of note index of each song
+    Notes_map = {}  # map from note to index
 
     # list of all unique note from dataset
     unique_note = Counter(Note for Notes in Notes_List for Note in set(Notes))
     for Note in unique_note.keys():
         Notes_vocab.append(Note)
-    
+
     # create map
-    Notes_map = dict(sorted({k: v for v, k in enumerate(Notes_vocab)}.items(), key=lambda item: item[1]))
+    Notes_map = dict(
+        sorted(
+            {k: v for v, k in enumerate(Notes_vocab)}.items(), key=lambda item: item[1]
+        )
+    )
 
     # mapping
     for Notes in Notes_List:
