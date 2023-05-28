@@ -41,6 +41,8 @@ def train(model, network_input, network_output):
 
     model.fit(network_input, network_output, epochs=60, batch_size=64, callbacks=callbacks_list)
 
+    model.save_weights('model_weights.h5')
+
 def prepare_sequences(notes, n_vocab):
     """ Prepare the sequences used by the Neural Network """
     sequence_length = 100
@@ -88,5 +90,6 @@ if __name__ == '__main__':
     network_input, network_output = prepare_sequences(Notes_Index_List, n_vocab)
 
     model = create_network(network_input, n_vocab)
+    model.load_weights('model_weights.h5')
 
     train(model, network_input, network_output)
