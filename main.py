@@ -90,6 +90,6 @@ if __name__ == '__main__':
     network_input, network_output = prepare_sequences(Notes_Index_List, n_vocab)
 
     model = create_network(network_input, n_vocab)
-    model.load_weights('model_weights.h5')
+    #model.load_weights('model_weights.h5')
 
     train(model, network_input, network_output)
